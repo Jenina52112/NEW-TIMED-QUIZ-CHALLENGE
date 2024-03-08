@@ -24,7 +24,7 @@ initialHere = document.getElementById("initialHere");
 clearScore = document.getElementById("clear");
 var index = 0;
 var score = 0;
-var highScore = 0;
+
 
 //this is for the start button
 startQ.addEventListener("click", function()
