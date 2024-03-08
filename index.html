@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Code Quizn</title>
+    <title>Code Quiz Challenge</title>
     <link rel="stylesheet" href="./style.css">
     
 </head>
@@ -11,14 +11,14 @@
 
   <main id = "dmain"> 
     <header>
-        <a href=" ">View High Scores</a>
+        <a href="#lastPage" id = "viewHigh">View High Scores</a>
         <div class = time>Time Remaining: <span id = "timer">120</span> seconds</div>
     </header>
 
     <article>    
     <h1>Coding Quiz Challenge</h1>
     <h2>Answer the following questions to assess knowledge of the topic. <br>
-        Every wrong answer will deduct 3 seconds from remaining time. <br>
+        Every wrong answer will deduct 10 seconds from remaining time. <br>
         TIME BEGINS WHEN YOU CLICK "START QUIZ". <br> Good luck!!!</h2>
 
     <button class="start">START QUIZ</button>
@@ -27,10 +27,10 @@
 <!-- second page -->
     <section id = "Questions"  class = "hide">
         <h3 id = "questiontext"></h3>
-        <button class = "letterA"></button>
-        <button class = "letterB"></button>
-        <button class = "letterC"></button>
-        <button class = "letterD"></button>
+        <button class = "letterA"></button><br>
+        <button class = "letterB"></button><br>
+        <button class = "letterC"></button><br>
+        <button class = "letterD"></button><br>
         
         
 
@@ -38,31 +38,33 @@
             
         </div>
     </section>
-
+<!-- //main ends here -->
 </main>
+
     <!-- Third page, results -->
     <section id="scoreInitial" class = "hide">
         <h3>All Done!!!</h3> 
         <p>Your score is <span id="score"></span></p>
         
-            <p>Enter Initials: <input type="text" class = "dplaceholder"> <button id = "submitInitial">Submit</button></p>
+            <p>Enter Initials: <input type="text" id = "initialHere" class = "dplaceholder"> <button id = "submitInitial">Submit</button></p>
         
     </section>
     <!-- main is from line 42 -->
- 
+  
     <!-- Fourth page -->
-    <section id="lastPage" class="hide">
+    <section id="lastPage"  class="hide">
         <h3>HIGH SCORES</h3>
-        <div id = "highScore"></div>
+        <div>
+          <ul id = "listScore"></ul>
+        </div>
         <br><br>
     
         <button id = "retryBtn">Retry</button>
-        <button>Clear High Score</button>
+        <button id = "clear">Clear High Score</button>
     
     </section>
-
+  
 <script src="./script.js"></script>
 </body>
 </html>
-
 

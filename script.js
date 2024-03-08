@@ -3,6 +3,7 @@ var main = document.getElementById("dmain");
 timerEl = document.querySelector("#timer");
 startQ = document.querySelector(".start");
 time = document.querySelector(".time")
+var viewHighs = document.getElementById("viewHigh")
 var headerEl = document.querySelector("header");
 var firstArticle = document.querySelector("article");
 var secondPage = document.getElementById("Questions");
@@ -18,17 +19,16 @@ optionC = document.querySelector(".letterC");
 optionD = document.querySelector(".letterD");
 wrongCorrect = document.querySelector(".wrongcorrect")
 scoreCount = document.getElementById("score");
-highCount = document.getElementById("highScore")
+highCount = document.getElementById("listScore")
+initialHere = document.getElementById("initialHere");
+clearScore = document.getElementById("clear");
 var index = 0;
 var score = 0;
 var highScore = 0;
 
-
-
-
+//this is for the start button
 startQ.addEventListener("click", function()
 {   
-    
     firstArticle.classList.add("hide");
     secondPage.classList.remove("hide");
     secLeft = 120;
@@ -38,18 +38,20 @@ startQ.addEventListener("click", function()
             secLeft --;
             timerEl.textContent = secLeft 
         }
-        if (secLeft === 0){
+        if (secLeft <= 0){
             time.textContent = "Time's Up!";
-            partThree()
+            
+            storeScoreList()
         } 
         
         else if(secLeft === 1){
             time.textContent = "Time Remaining: " + secLeft + " second"
         }
     }, 1000)
+    
     startQuestions()
 })
-
+//these are the array for questions and answers
 var questions = ["What Are the Looping Structures in JavaScript?",
                 "The FUNCTION and VAR are known as:",
                 "What are the different types of Pop up boxes available in JavaScript??",
@@ -83,46 +85,9 @@ var answer = ["All of the above", "Declaration statements", "All of the above", 
 
 optionList = [optionA, optionB, optionC, optionD]
 console.log(optionList)
-//new xper starts
-// function selectingAnswer(){
-//     optionList.addEventListener("click",function(event1){
-//     userAnswer =  event1.target.textContent
-//     console.log(userAnswer)
 
-//     if (userAnswer == answer[index]){
-//         wrongCorrect.textContent = "That's right!"
-//     }
-//     if (userAnswer !== answer[index]){
-//         wrongCorrect.textContent = "Wrong Answer"
-//     }
-// }
-//     )
-// }
-
-// function startQuestions(){
-//     selectingAnswer()
-//     questionText.textContent = questions[index]
-//     optionA.textContent = letterA[index]
-//     optionB.textContent = letterB[index]
-//     optionC.textContent = letterC[index]
-//     optionD.textContent = letterD[index]
- 
-//     question2()
-// }
-
-// function question2(){
-//     index = 1;
-//     selectingAnswer()
-//     questionText.textContent = questions[index]
-//     optionA.textContent = letterA[index]
-//     optionB.textContent = letterB[index]
-//     optionC.textContent = letterC[index]
-//     optionD.textContent = letterD[index]
- 
-//     //question2()
-// }
-//new xper ends
-function startQuestions(score, highScore){
+//this is where the question begins
+function startQuestions(){
     score = 0;
     scoreCount.textContent = score;
     questionText.textContent = questions[index]
@@ -130,7 +95,6 @@ function startQuestions(score, highScore){
     optionB.textContent = letterB[index]
     optionC.textContent = letterC[index]
     optionD.textContent = letterD[index]
-
 
     optionList.forEach((element) => 
     element.addEventListener("click",function(event){
@@ -140,8 +104,8 @@ function startQuestions(score, highScore){
             wrongCorrect.textContent = "That's right!"
             score = score + 1;
             console.log(score)
-            highScore = highScore + 1;
             scoreCount.textContent = score;
+            
                 
         }
         if (userAnswer !== answer[index]){
@@ -153,8 +117,6 @@ function startQuestions(score, highScore){
 )
 }
 
-
-
 function startQuestions2(){
     index = 1
     questionText.textContent = questions[index]
@@ -163,9 +125,9 @@ function startQuestions2(){
     optionC.textContent = letterC[index]
     optionD.textContent = letterD[index]
     optionList.forEach((element) => 
-    element.addEventListener("click",function(event){
-    
-     startQuestions3()
+    element.addEventListener("click",function(event){                            
+    startQuestions3()
+            
     })
     )
     }
@@ -185,84 +147,109 @@ function startQuestions3(){
     )
     }
         
-    function startQuestions4(){
-        index = 3
-        questionText.textContent = questions[index]
-        optionA.textContent = letterA[index]
-        optionB.textContent = letterB[index]
-        optionC.textContent = letterC[index]
-        optionD.textContent = letterD[index]
-        optionList.forEach((element) => 
-        element.addEventListener("click",function(event){
-                                
-        startQuestions5()
+function startQuestions4(){
+    index = 3
+    questionText.textContent = questions[index]
+    optionA.textContent = letterA[index]
+    optionB.textContent = letterB[index]
+    optionC.textContent = letterC[index]
+    optionD.textContent = letterD[index]
+    optionList.forEach((element) => 
+    element.addEventListener("click",function(event){                                
+    startQuestions5()
                 
     })
     )
     } 
 
-    function startQuestions5(){
-        index = 4
-        questionText.textContent = questions[index]
-        optionA.textContent = letterA[index]
-        optionB.textContent = letterB[index]
-        optionC.textContent = letterC[index]
-        optionD.textContent = letterD[index]
-        optionList.forEach((element) => 
-        element.addEventListener("click",function(event){
+function startQuestions5(){
+    index = 4
+    questionText.textContent = questions[index]
+    optionA.textContent = letterA[index]
+    optionB.textContent = letterB[index]
+    optionC.textContent = letterC[index]
+    optionD.textContent = letterD[index]
+    optionList.forEach((element) => 
+    element.addEventListener("click",function(event){
             
-            
-            partThree()                                                                  
-                
+    storescoreList()                                                                                         
     })
     ) 
                     
     } 
 
+var scoreList = []
+//this function adds list for every saved score
+function renderscoreList() {
+    highCount.innerHTML = "";
+    for (var i = 0; i < scoreList.length; i++) {
+      var todo = scoreList[i];  
+      var li = document.createElement("li");
+      li.textContent = todo;
+      li.setAttribute("id","highScore", i);
+      highCount.appendChild(li);
+    }
+  }
+  
+  //this function sets the array in local storage
+  function init(){   
+    var getstoredList =  JSON.parse(localStorage.getItem("scoreList"));
+    if (getstoredList !== null) {
+        scoreList = getstoredList;
+      }
+      renderscoreList();
+  }
 
-function partThree(){
+  //this is for the third part of the page displaying the initial submission
+  function storescoreList() {
+    clearInterval(secInterval)
     main.classList.add("hide")
-     thirdPage.classList.remove("hide");
-     pageFour.classList.add("hide"); 
+    thirdPage.classList.remove("hide");
+    pageFour.classList.add("hide"); 
+    localStorage.setItem("scoreList", JSON.stringify(scoreList));    
+  }
 
-     scoreInitial.addEventListener("click", function(){
+  //this function sets the initial and score to the local storage
+  scoreInitial.addEventListener("click", function(event) {    
+    var initialText = initialHere.value.trim();
+    if (initialText === "") {
+      return;
+    }
+    var userInitial = initialText    
+    localStorage.setItem("initial", userInitial)
+    localStorage.setItem("highScore", score)
+    localStorage.setItem("newHigh", userInitial+ '        ' + score)
+    var storedNewhigh = localStorage.getItem("newHigh");
+    console.log(storedNewhigh)
+    scoreList.push(storedNewhigh);
+    initialHere.value = "";
 
-        //TODO
-        //set to local storage
-        
-        localStorage.setItem("highScore", highScore);
-        console.log(highScore)
+    storescoreList();
+    renderscoreList();
 
-        //take to fourth page
-
-        fourthPart()
-     })
-}
-
-function showHigh(){
-localStorage.getItem("highScore");
-highCount.textContent = highScore;
-}
-
-
-function fourthPart(){   
     main.classList.add("hide")
     thirdPage.classList.add("hide");
-    pageFour.classList.remove("hide");
-    
+    pageFour.classList.remove("hide");  
 
-}
+  });
 
+    init()
 
- 
-//TODO
-//Take user back to the first page
-
-
+//this is for the retry button
 tryAgain.addEventListener("click", function(){
     window.location.reload();
 })
 
+//this is for the clear highscore button
+clearScore.addEventListener("click", function(){
+    localStorage.clear()
+    highCount.textContent = ""
+})
 
 
-// TODO: Set local storage
+//this is for the viewhighscore from the first page
+viewHighs.addEventListener("click", function(){
+    main.classList.add("hide")
+    thirdPage.classList.add("hide");
+    pageFour.classList.remove("hide");  
+})
